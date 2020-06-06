@@ -20,6 +20,9 @@ exports.sendNotification = functions.firestore.document("users/{user_doc}/notifi
                 click_action: "com.example.teamup.NOTIFICATION"
             },
             data: {
+                sender: notificationDoc.sentFrom,
+                recepient: notificationDoc.recepient,
+                project: notificationDoc.project,
                 notificationType: notificationDoc.type
             }
         };
