@@ -10,7 +10,7 @@ exports.sendNotification = functions.firestore.document("users/{user_doc}/notifi
 
     return admin.firestore().collection("users").doc(userDoc).get().then(tokenResult => {
         //  Token del recipiente della notifica
-        const recepientToken = tokenResult.data().token;
+        const recipientToken = tokenResult.data().token;
 
         //  Dati inviati nella notifica
         const payload = {
@@ -21,15 +21,15 @@ exports.sendNotification = functions.firestore.document("users/{user_doc}/notifi
             },
             data: {
                 sender: notificationDoc.sentFrom,
-                recepient: notificationDoc.recepient,
+                recipient: notificationDoc.recipient,
                 project: notificationDoc.project,
                 notificationType: notificationDoc.type
             }
         };
 
         //  Invia la notifica all'utente con recepientToken
-        return admin.messaging().sendToDevice(recepientToken, payload).then(result => {
-            console.log("Notification sent to device " + recepientToken);
+        return admin.messaging().sendToDevice(recipientToken, payload).then(result => {
+            console.log("Notification sent to device " + recipientToken);
             return null;
         });
     });
