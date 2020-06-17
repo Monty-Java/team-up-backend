@@ -14,11 +14,6 @@ exports.sendNotification = functions.firestore.document("users/{user_doc}/notifi
 
         //  Dati inviati nella notifica
         const payload = {
-            notification: {
-                title: "Teammate Request",
-                body: notificationDoc.sentFrom + " has requested to join your team on " + notificationDoc.project,
-                click_action: "com.example.teamup.NOTIFICATION"
-            },
             data: {
                 sender: notificationDoc.sentFrom,
                 recipient: notificationDoc.recipient,
