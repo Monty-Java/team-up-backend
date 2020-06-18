@@ -4,7 +4,7 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp();
 
-exports.sendNotification = functions.firestore.document("users/{user_doc}/notifications/{notification_doc}").onCreate((snapshot, context) => {
+exports.pushNotification = functions.region('europe-west3').firestore.document("users/{user_doc}/notifications/{notification_doc}").onCreate((snapshot, context) => {
     const userDoc = context.params.user_doc;    //  Riferimento al documento del recipiente
     const notificationDoc = snapshot.data();    //  Riferimento ai dati contenuti nel documento di notifica
 
@@ -15,10 +15,10 @@ exports.sendNotification = functions.firestore.document("users/{user_doc}/notifi
         //  Dati inviati nella notifica
         const payload = {
             data: {
-                sender: notificationDoc.sentFrom,
+                sender: notificationDoc.sender,
                 recipient: notificationDoc.recipient,
                 project: notificationDoc.project,
-                notificationType: notificationDoc.type
+                notificationType: notificationDoc.notificationType
             }
         };
 
