@@ -16,6 +16,7 @@ exports.pushNotification = functions.region('europe-west3').firestore.document("
         const payload = {
             data: {
                 sender: notificationDoc.sender,
+                uid: notificationDoc.uid,
                 recipient: notificationDoc.recipient,
                 project: notificationDoc.project,
                 notificationType: notificationDoc.notificationType
